@@ -18,6 +18,7 @@ struct cl_amd_device_topology {
 
 const AMD_DEVICE_VENDOR_STRING: &'static str = "AMD";
 const NVIDIA_DEVICE_VENDOR_STRING: &'static str = "NVIDIA Corporation";
+const INTEL_DEVICE_VENDOR_STRING: &'static str = "Intel(R) Corporation";
 
 pub fn is_little_endian(d: ocl::Device) -> GPUResult<bool> {
     match d.info(ocl::enums::DeviceInfo::EndianLittle)? {
@@ -113,7 +114,7 @@ fn build_device_list() -> HashMap<Brand, Vec<Device>> {
                                 if let Ok(vendor) = d.vendor() {
                                     match vendor.as_str() {
                                         // Only use devices from the accepted vendors ...
-                                        AMD_DEVICE_VENDOR_STRING | NVIDIA_DEVICE_VENDOR_STRING => {
+                                        AMD_DEVICE_VENDOR_STRING | NVIDIA_DEVICE_VENDOR_STRING | INTEL_DEVICE_VENDOR_STRING => {
                                             // ... which are available.
                                             return d.is_available().unwrap_or(false);
                                         }

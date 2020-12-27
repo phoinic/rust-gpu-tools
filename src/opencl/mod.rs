@@ -16,6 +16,7 @@ pub enum Brand {
     Amd,
     Apple,
     Nvidia,
+    Intel,
 }
 
 impl Brand {
@@ -24,11 +25,12 @@ impl Brand {
             Brand::Nvidia => "NVIDIA CUDA",
             Brand::Amd => "AMD Accelerated Parallel Processing",
             Brand::Apple => "Apple",
+            Brand::Intel => "Intel(R) OpenCL HD Graphics",
         }
     }
 
     fn all() -> Vec<Brand> {
-        vec![Brand::Nvidia, Brand::Amd, Brand::Apple]
+        vec![Brand::Nvidia, Brand::Amd, Brand::Apple, Brand::Intel]
     }
 }
 
@@ -378,12 +380,10 @@ macro_rules! call_kernel {
 #[cfg(test)]
 mod test {
     use super::*;
-
+    
     #[test]
     fn test_device_all() {
-        for _ in 0..10 {
-            let devices = Device::all();
-            dbg!(&devices.len());
-        }
+        let devices = Device::all();
+        dbg!(&devices.len());
     }
 }
